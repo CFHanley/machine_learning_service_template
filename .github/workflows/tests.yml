@@ -23,3 +23,12 @@ jobs:
       - name: Run pytest
         run: pytest
 
+      - name: Set status check
+        if: ${{ always() }}
+        run: |
+          if [[ ${{ job.status }} == 'success' ]]; then
+            echo "Tests passed!"
+          else
+            echo "Tests failed!"
+            exit 1
+          fi
